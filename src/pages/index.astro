@@ -17,9 +17,20 @@ const caseTiles = cases.map((c) => ({
 }));
 ---
 <BaseLayout title="AI-Augmented Paralegal Portfolio — 28 task types, 6 fictional cases">
-  <section class="px-6 py-20 md:py-28">
-    <div class="mx-auto max-w-4xl text-center">
-      <p class="text-xs uppercase tracking-[0.2em] text-accent font-semibold">AI-Augmented Paralegal · California Jurisdiction</p>
+  <section class="px-6 py-20 md:py-28 relative overflow-hidden">
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(230,57,70,0.08),transparent_60%)]"></div>
+
+    <div class="relative mx-auto max-w-4xl text-center">
+      <div class="inline-flex items-center gap-2 bg-ink text-paper text-[11px] uppercase tracking-[0.18em] font-semibold px-3.5 py-1.5 rounded-full shadow-sm">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+        </span>
+        Built with Claude AI · 100% disclosed
+      </div>
+
+      <p class="text-xs uppercase tracking-[0.2em] text-accent font-semibold mt-5">AI-Augmented Paralegal · California Jurisdiction</p>
+
       <h1 class="font-display text-5xl md:text-7xl mt-4 leading-tight">
         Every paralegal task,<br />delivered with an<br /><span class="text-accent">AI workflow</span>.
       </h1>
@@ -27,12 +38,22 @@ const caseTiles = cases.map((c) => ({
         Intake to trial — 28 task types, each shown through an AI-assisted artifact with prompts, edits,
         and reviewer notes disclosed. Six fictional California cases. No real client data.
       </p>
+
+      <div class="mt-8 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs font-mono text-muted">
+        <span class="inline-flex items-center gap-1.5"><span class="text-accent">▸</span> Prompt log</span>
+        <span class="hidden sm:inline text-rule/30">·</span>
+        <span class="inline-flex items-center gap-1.5"><span class="text-accent">▸</span> Reviewer edits</span>
+        <span class="hidden sm:inline text-rule/30">·</span>
+        <span class="inline-flex items-center gap-1.5"><span class="text-accent">▸</span> Accuracy notes</span>
+        <span class="hidden sm:inline text-rule/30">·</span>
+        <span class="inline-flex items-center gap-1.5"><span class="text-accent">▸</span> Hallucination check</span>
+      </div>
     </div>
 
-    <div class="mx-auto max-w-3xl mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="relative mx-auto max-w-3xl mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
       <Stat value="28" label="Task types" />
       <Stat value="6" label="Fictional cases" />
-      <Stat value="28" label="Artifacts" />
+      <Stat value="28" label="AI-drafted artifacts" />
       <Stat value="CA" label="Jurisdiction" />
     </div>
   </section>
