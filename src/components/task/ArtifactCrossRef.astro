@@ -13,7 +13,8 @@ const { artifacts } = Astro.props;
       <li>
         <a
           href={`/artifacts/${a.data.caseSlug}/${a.slug}/`}
-          class="block border border-rule/15 rounded-lg p-4 hover:border-accent transition"
+          data-artifact-link
+          class="block border border-rule/15 rounded-lg p-4 hover:border-accent transition cursor-pointer"
         >
           <p class="text-xs text-muted font-mono">{a.data.caseSlug}</p>
           <p class="font-semibold mt-1">{a.data.title}</p>
@@ -23,3 +24,89 @@ const { artifacts } = Astro.props;
     ))}
   </ul>
 )}
+
+<div id="artifact-drawer" class="fixed inset-0 z-50 hidden" aria-hidden="true">
+  <div data-drawer-backdrop class="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-200"></div>
+  <aside
+    data-drawer-panel
+    class="absolute inset-y-0 left-0 w-full md:w-3/4 bg-paper shadow-2xl -translate-x-full transition-transform duration-300 ease-out flex flex-col"
+    role="dialog"
+    aria-modal="true"
+  >
+    <header class="flex items-center justify-between gap-4 px-6 py-3 border-b border-rule/15 flex-none bg-paper">
+      <a data-drawer-open-link href="#" class="text-xs font-mono text-muted hover:text-accent">Open full page &rarr;</a>
+      <button data-drawer-close type="button" class="text-3xl leading-none px-3 -mr-2 hover:text-accent" aria-label="Close">&times;</button>
+    </header>
+    <div data-drawer-body class="flex-1 overflow-y-auto"></div>
+  </aside>
+</div>
+
+<script is:inline>
+  (function () {
+    const drawer = document.getElementById('artifact-drawer');
+    if (!drawer) return;
+    const panel = drawer.querySelector('[data-drawer-panel]');
+    const backdrop = drawer.querySelector('[data-drawer-backdrop]');
+    const body = drawer.querySelector('[data-drawer-body]');
+    const closeBtn = drawer.querySelector('[data-drawer-close]');
+    const openLink = drawer.querySelector('[data-drawer-open-link]');
+
+    function openDrawer(href) {
+      openLink.setAttribute('href', href);
+      drawer.classList.remove('hidden');
+      drawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(function () {
+        panel.classList.remove('-translate-x-full');
+        backdrop.classList.remove('opacity-0');
+      });
+      body.innerHTML = '<p class="p-8 text-muted">Loading&hellip;</p>';
+      fetch(href)
+        .then(function (r) { return r.text(); })
+        .then(function (html) {
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          const main = doc.querySelector('main');
+          body.innerHTML = main ? main.innerHTML : '<p class="p-8">Could not load artifact.</p>';
+        })
+        .catch(function () {
+          body.innerHTML = '<p class="p-8 text-muted">Failed to load artifact.</p>';
+        });
+    }
+
+    function closeDrawer() {
+      panel.classList.add('-translate-x-full');
+      backdrop.classList.add('opacity-0');
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      setTimeout(function () {
+        drawer.classList.add('hidden');
+        body.innerHTML = '';
+      }, 300);
+    }
+
+    document.querySelectorAll('a[data-artifact-link]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+        e.preventDefault();
+        openDrawer(link.getAttribute('href'));
+      });
+    });
+
+    closeBtn.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !drawer.classList.contains('hidden')) closeDrawer();
+    });
+
+    body.addEventListener('click', function (e) {
+      const a = e.target.closest('a');
+      if (!a) return;
+      const href = a.getAttribute('href');
+      if (!href || !href.startsWith('/')) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.button === 1) return;
+      e.preventDefault();
+      openDrawer(href);
+      body.scrollTop = 0;
+    });
+  })();
+</script>
