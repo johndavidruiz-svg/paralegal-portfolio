@@ -1,0 +1,15 @@
+---
+interface Props {
+  variant?: 'stripe' | 'inline';
+}
+const { variant = 'stripe' } = Astro.props;
+---
+{variant === 'stripe' ? (
+  <div class="bg-accent text-paper text-center text-xs font-semibold tracking-wider uppercase py-2 px-4">
+    Fictional matter — created for portfolio demonstration. No real parties, courts, or facts.
+  </div>
+) : (
+  <span class="inline-block bg-accent/10 text-accent text-[11px] font-semibold tracking-wider uppercase px-2 py-1 rounded">
+    Fictional
+  </span>
+)}
