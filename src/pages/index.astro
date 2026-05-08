@@ -1,6 +1,71 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import CaseTile from '@/components/case/CaseTile.astro';
+import TaskChip from '@/components/task/TaskChip.astro';
+import Stat from '@/components/ui/Stat.astro';
+import RuleHairline from '@/components/ui/RuleHairline.astro';
+
+const cases = await getCollection('cases');
+const tasks = await getCollection('tasks');
+const artifacts = await getCollection('artifacts');
+
+const caseTiles = cases.map((c) => ({
+  ...c.data,
+  href: `/cases/${c.data.slug}/`,
+  artifactCount: artifacts.filter((a) => a.data.caseSlug === c.data.slug).length,
+}));
 ---
-<BaseLayout title="Paralegal Portfolio">
-  <p class="p-8">Hello</p>
+<BaseLayout title="Paralegal Portfolio — 28 task types, 6 fictional cases">
+  <section class="px-6 py-20 md:py-28">
+    <div class="mx-auto max-w-4xl text-center">
+      <p class="text-xs uppercase tracking-[0.2em] text-accent font-semibold">Portfolio · California Jurisdiction · AI-Augmented</p>
+      <h1 class="font-display text-5xl md:text-7xl mt-4 leading-tight">
+        Every paralegal task,<br />demonstrated through<br /><span class="text-accent">fictional casework</span>.
+      </h1>
+      <p class="text-muted mt-6 text-lg max-w-2xl mx-auto">
+        Twenty-eight paralegal task types — intake, discovery, motions, trial prep, family law, probate,
+        criminal — each shown through a real-feeling artifact across six fictional California cases.
+      </p>
+    </div>
+
+    <div class="mx-auto max-w-3xl mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <Stat value="28" label="Task types" />
+      <Stat value="6" label="Fictional cases" />
+      <Stat value="28" label="Artifacts" />
+      <Stat value="CA" label="Jurisdiction" />
+    </div>
+  </section>
+
+  <RuleHairline tone="accent" />
+
+  <section class="px-6 py-16">
+    <div class="mx-auto max-w-6xl">
+      <h2 class="font-display text-3xl md:text-4xl mb-8">The cases</h2>
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {caseTiles.map((c) => (
+          <CaseTile
+            href={c.href}
+            caption={c.caption}
+            practiceArea={c.practiceArea}
+            oneLiner={c.oneLiner}
+            artifactCount={c.artifactCount}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <RuleHairline />
+
+  <section class="px-6 py-16">
+    <div class="mx-auto max-w-6xl">
+      <h2 class="font-display text-3xl md:text-4xl mb-8">The 28 task types</h2>
+      <div class="flex flex-wrap gap-2">
+        {tasks.sort((a,b) => a.data.name.localeCompare(b.data.name)).map((t) => (
+          <TaskChip href={`/tasks/${t.data.slug}/`} name={t.data.name} shortDef={t.data.shortDef} />
+        ))}
+      </div>
+    </div>
+  </section>
 </BaseLayout>
