@@ -35,7 +35,7 @@ const grouped = stages.map((stage) => ({
             <h2 class="font-display text-2xl mb-4">{g.label}</h2>
             <div class="flex flex-wrap gap-2">
               {g.items.map((t) => (
-                <TaskChip href={`/tasks/${t.data.slug}/`} name={t.data.name} shortDef={t.data.shortDef} />
+                <TaskChip href={`/tasks/${t.slug}/`} name={t.data.name} shortDef={t.data.shortDef} />
               ))}
             </div>
           </div>

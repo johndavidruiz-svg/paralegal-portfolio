@@ -63,7 +63,7 @@ const caseTiles = cases.map((c) => ({
       <h2 class="font-display text-3xl md:text-4xl mb-8">The 28 task types</h2>
       <div class="flex flex-wrap gap-2">
         {tasks.sort((a,b) => a.data.name.localeCompare(b.data.name)).map((t) => (
-          <TaskChip href={`/tasks/${t.data.slug}/`} name={t.data.name} shortDef={t.data.shortDef} />
+          <TaskChip href={`/tasks/${t.slug}/`} name={t.data.name} shortDef={t.data.shortDef} />
         ))}
       </div>
     </div>

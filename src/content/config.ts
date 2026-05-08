@@ -72,7 +72,6 @@ const artifacts = defineCollection({
 const tasks = defineCollection({
   type: 'content',
   schema: z.object({
-    slug: z.string(),
     name: z.string(),
     stage: z.enum([
       'intake',

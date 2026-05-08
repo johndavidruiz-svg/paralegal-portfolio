@@ -9,10 +9,10 @@ export async function getStaticPaths() {
   const tasks = await getCollection('tasks');
   const artifacts = await getCollection('artifacts');
   return tasks.map((t) => ({
-    params: { slug: t.data.slug },
+    params: { slug: t.slug },
     props: {
       taskEntry: t,
-      artifacts: artifacts.filter((a) => a.data.taskTypeSlug === t.data.slug),
+      artifacts: artifacts.filter((a) => a.data.taskTypeSlug === t.slug),
     },
   }));
 }
