@@ -9,10 +9,10 @@ export async function getStaticPaths() {
   const cases = await getCollection('cases');
   const artifacts = await getCollection('artifacts');
   return cases.map((c) => ({
-    params: { slug: c.data.slug },
+    params: { slug: c.slug },
     props: {
       caseEntry: c,
-      artifacts: artifacts.filter((a) => a.data.caseSlug === c.data.slug),
+      artifacts: artifacts.filter((a) => a.data.caseSlug === c.slug),
     },
   }));
 }
@@ -20,6 +20,7 @@ export async function getStaticPaths() {
 const { caseEntry, artifacts } = Astro.props;
 const { Content } = await caseEntry.render();
 const d = caseEntry.data;
+const caseSlug = caseEntry.slug;
 ---
 <BaseLayout title={`${d.caption} — Case`} description={d.oneLiner}>
   <CaseHeader
@@ -40,6 +41,6 @@ const d = caseEntry.data;
   </div>
 
   <div class="mx-auto max-w-3xl px-6">
-    <CaseArtifactList caseSlug={d.slug} artifacts={artifacts} />
+    <CaseArtifactList caseSlug={caseSlug} artifacts={artifacts} />
   </div>
 </BaseLayout>

@@ -3,7 +3,6 @@ import { defineCollection, z } from 'astro:content';
 const cases = defineCollection({
   type: 'content',
   schema: z.object({
-    slug: z.string(),
     caption: z.string(),
     shortName: z.string(),
     practiceArea: z.enum([
@@ -35,7 +34,6 @@ const cases = defineCollection({
 const artifacts = defineCollection({
   type: 'content',
   schema: z.object({
-    slug: z.string(),
     caseSlug: z.string(),
     taskTypeSlug: z.string(),
     title: z.string(),

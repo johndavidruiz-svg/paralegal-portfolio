@@ -12,8 +12,8 @@ const artifacts = await getCollection('artifacts');
 
 const caseTiles = cases.map((c) => ({
   ...c.data,
-  href: `/cases/${c.data.slug}/`,
-  artifactCount: artifacts.filter((a) => a.data.caseSlug === c.data.slug).length,
+  href: `/cases/${c.slug}/`,
+  artifactCount: artifacts.filter((a) => a.data.caseSlug === c.slug).length,
 }));
 ---
 <BaseLayout title="Paralegal Portfolio — 28 task types, 6 fictional cases">

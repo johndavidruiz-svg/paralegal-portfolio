@@ -11,16 +11,16 @@ export async function getStaticPaths() {
   const cases = await getCollection('cases');
 
   return artifacts.map((art) => {
-    const caseEntry = cases.find((c) => c.data.slug === art.data.caseSlug);
+    const caseEntry = cases.find((c) => c.slug === art.data.caseSlug);
     const siblings = artifacts
       .filter((a) => a.data.caseSlug === art.data.caseSlug)
       .sort((a, b) => a.data.date.localeCompare(b.data.date));
-    const idx = siblings.findIndex((s) => s.data.slug === art.data.slug);
+    const idx = siblings.findIndex((s) => s.slug === art.slug);
     const prev = idx > 0 ? siblings[idx - 1] : null;
     const next = idx < siblings.length - 1 ? siblings[idx + 1] : null;
 
     return {
-      params: { case: art.data.caseSlug, artifact: art.data.slug },
+      params: { case: art.data.caseSlug, artifact: art.slug },
       props: { artifact: art, caseEntry, prev, next },
     };
   });
@@ -32,10 +32,10 @@ const a = artifact.data;
 const c = caseEntry?.data;
 
 const prevLink = prev
-  ? { href: `/artifacts/${prev.data.caseSlug}/${prev.data.slug}/`, title: prev.data.title }
+  ? { href: `/artifacts/${prev.data.caseSlug}/${prev.slug}/`, title: prev.data.title }
   : null;
 const nextLink = next
-  ? { href: `/artifacts/${next.data.caseSlug}/${next.data.slug}/`, title: next.data.title }
+  ? { href: `/artifacts/${next.data.caseSlug}/${next.slug}/`, title: next.data.title }
   : null;
 ---
 <BaseLayout title={`${a.title} — ${c?.shortName ?? a.caseSlug}`} description={`Fictional ${a.documentType} from ${c?.caption ?? a.caseSlug}.`}>

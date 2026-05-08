@@ -15,11 +15,11 @@ const artifacts = await getCollection('artifacts');
       <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {cases.map((c) => (
           <CaseTile
-            href={`/cases/${c.data.slug}/`}
+            href={`/cases/${c.slug}/`}
             caption={c.data.caption}
             practiceArea={c.data.practiceArea}
             oneLiner={c.data.oneLiner}
-            artifactCount={artifacts.filter((a) => a.data.caseSlug === c.data.slug).length}
+            artifactCount={artifacts.filter((a) => a.data.caseSlug === c.slug).length}
           />
         ))}
       </div>

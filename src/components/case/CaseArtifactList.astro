@@ -20,7 +20,7 @@ const sorted = [...artifacts].sort((a, b) =>
     {sorted.map((art) => (
       <li>
         <a
-          href={`/artifacts/${caseSlug}/${art.data.slug}/`}
+          href={`/artifacts/${caseSlug}/${art.slug}/`}
           class="block border border-rule/15 rounded-lg p-4 hover:border-accent transition"
         >
           <p class="text-xs text-muted font-mono">{art.data.date}{art.data.formNumber ? ` · ${art.data.formNumber}` : ''}</p>

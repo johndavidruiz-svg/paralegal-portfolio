@@ -12,7 +12,7 @@ const { artifacts } = Astro.props;
     {artifacts.map((a) => (
       <li>
         <a
-          href={`/artifacts/${a.data.caseSlug}/${a.data.slug}/`}
+          href={`/artifacts/${a.data.caseSlug}/${a.slug}/`}
           class="block border border-rule/15 rounded-lg p-4 hover:border-accent transition"
         >
           <p class="text-xs text-muted font-mono">{a.data.caseSlug}</p>
