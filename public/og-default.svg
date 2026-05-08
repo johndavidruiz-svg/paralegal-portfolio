@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#FAF7F2"/>
+  <rect x="0" y="0" width="1200" height="80" fill="#E63946"/>
+  <text x="60" y="50" font-family="Inter, sans-serif" font-size="22" font-weight="700" fill="#FAF7F2" letter-spacing="4">FICTIONAL · PORTFOLIO · CALIFORNIA</text>
+  <text x="60" y="280" font-family="Fraunces, Georgia, serif" font-size="76" font-weight="700" fill="#0B0F14">Paralegal Portfolio</text>
+  <text x="60" y="360" font-family="Fraunces, Georgia, serif" font-size="48" font-weight="400" fill="#0B0F14">28 task types · 6 fictional cases</text>
+  <text x="60" y="540" font-family="Inter, sans-serif" font-size="24" fill="#6B7280">AI-augmented method · paralegal-portfolio.pages.dev</text>
+  <rect x="60" y="450" width="120" height="4" fill="#E63946"/>
+</svg>
