@@ -1,0 +1,64 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ArtifactHeader from '@/components/artifact/ArtifactHeader.astro';
+import ArtifactBody from '@/components/artifact/ArtifactBody.astro';
+import AiDisclosure from '@/components/artifact/AiDisclosure.astro';
+import ArtifactPagination from '@/components/artifact/ArtifactPagination.astro';
+
+export async function getStaticPaths() {
+  const artifacts = await getCollection('artifacts');
+  const cases = await getCollection('cases');
+
+  return artifacts.map((art) => {
+    const caseEntry = cases.find((c) => c.data.slug === art.data.caseSlug);
+    const siblings = artifacts
+      .filter((a) => a.data.caseSlug === art.data.caseSlug)
+      .sort((a, b) => a.data.date.localeCompare(b.data.date));
+    const idx = siblings.findIndex((s) => s.data.slug === art.data.slug);
+    const prev = idx > 0 ? siblings[idx - 1] : null;
+    const next = idx < siblings.length - 1 ? siblings[idx + 1] : null;
+
+    return {
+      params: { case: art.data.caseSlug, artifact: art.data.slug },
+      props: { artifact: art, caseEntry, prev, next },
+    };
+  });
+}
+
+const { artifact, caseEntry, prev, next } = Astro.props;
+const { Content } = await artifact.render();
+const a = artifact.data;
+const c = caseEntry?.data;
+
+const prevLink = prev
+  ? { href: `/artifacts/${prev.data.caseSlug}/${prev.data.slug}/`, title: prev.data.title }
+  : null;
+const nextLink = next
+  ? { href: `/artifacts/${next.data.caseSlug}/${next.data.slug}/`, title: next.data.title }
+  : null;
+---
+<BaseLayout title={`${a.title} — ${c?.shortName ?? a.caseSlug}`} description={`Fictional ${a.documentType} from ${c?.caption ?? a.caseSlug}.`}>
+  <ArtifactHeader
+    caseCaption={c?.caption ?? a.caseSlug}
+    caseNumber={c?.caseNumber}
+    court={c?.court}
+    title={a.title}
+    formNumber={a.formNumber}
+    date={a.date}
+    documentType={a.documentType}
+    authorRole={a.authorRole}
+  />
+
+  <ArtifactBody documentType={a.documentType}>
+    <Content />
+  </ArtifactBody>
+
+  <AiDisclosure
+    method={a.aiAugmentation.method}
+    humanJudgmentPoints={a.aiAugmentation.humanJudgmentPoints}
+    timeSavedVsTraditional={a.aiAugmentation.timeSavedVsTraditional}
+  />
+
+  <ArtifactPagination prev={prevLink} next={nextLink} />
+</BaseLayout>
