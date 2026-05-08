@@ -1,0 +1,69 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Callout from '@/components/ui/Callout.astro';
+---
+<BaseLayout title="About — Paralegal Portfolio">
+  <section class="px-6 py-16">
+    <div class="mx-auto max-w-3xl">
+      <p class="text-xs uppercase tracking-[0.2em] text-accent font-semibold">About</p>
+      <h1 class="font-display text-4xl md:text-5xl mt-4">
+        Paralegal-grade work, AI-augmented method.
+      </h1>
+
+      <div class="prose prose-neutral mt-8 max-w-none">
+        <p class="text-lg">
+          This portfolio demonstrates that an AI-augmented operator can produce the full
+          range of paralegal and legal-assistant work product at staff-paralegal quality —
+          from intake memos through trial-prep binders, across six different practice areas.
+        </p>
+
+        <h2>The method</h2>
+        <p>
+          Every artifact on this site is produced through a hybrid workflow: AI handles the
+          heavy lifting of drafting, formatting, and cross-referencing while a human operator
+          (David Ruiz, Top Virtual PH) makes the strategic calls — what theory of the case to
+          pursue, what tone to set in correspondence, where the facts cut differently than they
+          first appear.
+        </p>
+
+        <p>
+          On every artifact you'll find a <strong>"How this was made"</strong> disclosure
+          panel. It names the AI method used, the points where human judgment was the
+          deciding factor, and an honest comparison of the time taken versus a traditional
+          unaided workflow.
+        </p>
+
+        <h2>Why fictional cases</h2>
+        <p>
+          Real client work belongs to clients. To demonstrate the same range of work product
+          without ever using a real matter, this portfolio is built on six fictional
+          California cases — fact patterns, parties, courts, and case numbers all invented.
+          Every artifact carries a fictional-content stripe so it cannot be mistaken for real
+          legal filing or advice.
+        </p>
+
+        <h2>Who this is for</h2>
+        <ul>
+          <li>
+            <strong>U.S. attorneys and law-firm hiring managers</strong> evaluating outsourced
+            paralegal support — to see exactly what tasks can be delegated and at what
+            quality.
+          </li>
+          <li>
+            <strong>Paralegal students and legal VAs</strong> studying real-feeling artifacts
+            in a no-stakes environment.
+          </li>
+          <li>
+            <strong>Other AI-augmented operators</strong> looking at how the disclosure
+            pattern is applied, end-to-end.
+          </li>
+        </ul>
+      </div>
+
+      <Callout tone="warn" title="Not legal advice">
+        Nothing on this site is legal advice. All cases, parties, courts, and documents are
+        fictional. Do not rely on any artifact here for the disposition of an actual matter.
+      </Callout>
+    </div>
+  </section>
+</BaseLayout>
