@@ -1,0 +1,8 @@
+---
+interface Props {
+  tone?: 'rule' | 'accent';
+}
+const { tone = 'rule' } = Astro.props;
+const cls = tone === 'accent' ? 'bg-accent' : 'bg-rule';
+---
+<hr class={`my-8 h-px border-0 ${cls}/30`} />

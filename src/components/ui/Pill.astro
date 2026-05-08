@@ -1,0 +1,13 @@
+---
+interface Props {
+  href?: string;
+  active?: boolean;
+}
+const { href, active = false } = Astro.props;
+const cls = `inline-block px-3 py-1 rounded-full border text-sm transition ${
+  active
+    ? 'bg-ink text-paper border-ink'
+    : 'border-rule/20 hover:border-accent hover:text-accent'
+}`;
+---
+{href ? <a href={href} class={cls}><slot /></a> : <span class={cls}><slot /></span>}
