@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ink: #0B0F14;
+    --paper: #FAF7F2;
+    --accent: #E63946;
+    --accent-2: #2A9D8F;
+    --accent-3: #F4A261;
+    --rule: #1A1A1A;
+    --muted: #6B7280;
+  }
+
+  html {
+    background: var(--paper);
+    color: var(--ink);
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+
+  /* Pleading-paper line numbering for documentType=pleading|motion */
+  .pleading-paper {
+    counter-reset: pleading-line;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 2;
+  }
+  .pleading-paper p {
+    counter-increment: pleading-line;
+    position: relative;
+    padding-left: 2.5rem;
+  }
+  .pleading-paper p::before {
+    content: counter(pleading-line);
+    position: absolute;
+    left: 0;
+    color: var(--muted);
+    font-size: 0.85em;
+  }
+}
