@@ -1,0 +1,46 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TaskChip from '@/components/task/TaskChip.astro';
+
+const tasks = await getCollection('tasks');
+
+const stages = [
+  'intake',
+  'case-management',
+  'discovery-propounded',
+  'discovery-responses',
+  'motions',
+  'trial-prep',
+  'family-law',
+  'probate',
+  'criminal',
+] as const;
+
+const grouped = stages.map((stage) => ({
+  stage,
+  label: stage.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+  items: tasks.filter((t) => t.data.stage === stage),
+}));
+---
+<BaseLayout title="Task Types — Paralegal Portfolio">
+  <section class="px-6 py-16">
+    <div class="mx-auto max-w-5xl">
+      <p class="text-xs uppercase tracking-[0.2em] text-accent font-semibold">Task Types</p>
+      <h1 class="font-display text-4xl md:text-5xl mt-4 mb-10">Twenty-eight paralegal task types</h1>
+
+      <div class="space-y-10">
+        {grouped.filter((g) => g.items.length > 0).map((g) => (
+          <div>
+            <h2 class="font-display text-2xl mb-4">{g.label}</h2>
+            <div class="flex flex-wrap gap-2">
+              {g.items.map((t) => (
+                <TaskChip href={`/tasks/${t.data.slug}/`} name={t.data.name} shortDef={t.data.shortDef} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
