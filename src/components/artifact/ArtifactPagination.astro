@@ -1,0 +1,25 @@
+---
+interface Props {
+  prev?: { href: string; title: string } | null;
+  next?: { href: string; title: string } | null;
+}
+const { prev, next } = Astro.props;
+---
+<nav class="mx-auto max-w-3xl px-6 my-10 flex justify-between gap-4 not-prose">
+  <div>
+    {prev && (
+      <a href={prev.href} class="block border border-rule/15 rounded-lg p-4 hover:border-accent transition">
+        <p class="text-xs text-muted">← Previous</p>
+        <p class="font-semibold mt-1 line-clamp-2">{prev.title}</p>
+      </a>
+    )}
+  </div>
+  <div>
+    {next && (
+      <a href={next.href} class="block border border-rule/15 rounded-lg p-4 hover:border-accent transition text-right">
+        <p class="text-xs text-muted">Next →</p>
+        <p class="font-semibold mt-1 line-clamp-2">{next.title}</p>
+      </a>
+    )}
+  </div>
+</nav>

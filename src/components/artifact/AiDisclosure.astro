@@ -1,0 +1,29 @@
+---
+import { formatTimeSaved } from '@/lib/ai-meta';
+
+interface Props {
+  method: string;
+  humanJudgmentPoints: string[];
+  timeSavedVsTraditional?: string;
+}
+const { method, humanJudgmentPoints, timeSavedVsTraditional } = Astro.props;
+---
+<details class="mx-auto max-w-3xl my-10 border-2 border-accent-3 rounded-xl bg-accent-3/10 p-6 not-prose">
+  <summary class="font-display text-xl cursor-pointer">How this was made</summary>
+  <div class="mt-4 space-y-4 text-sm">
+    <div>
+      <p class="font-semibold mb-1">Method</p>
+      <p>{method}</p>
+    </div>
+    <div>
+      <p class="font-semibold mb-1">Human judgment points</p>
+      <ul class="list-disc list-inside space-y-1">
+        {humanJudgmentPoints.map(p => <li>{p}</li>)}
+      </ul>
+    </div>
+    <div>
+      <p class="font-semibold mb-1">Time</p>
+      <p class="font-mono">{formatTimeSaved(timeSavedVsTraditional)}</p>
+    </div>
+  </div>
+</details>

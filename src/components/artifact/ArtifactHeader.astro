@@ -1,0 +1,30 @@
+---
+import Badge from '@/components/ui/Badge.astro';
+import FictionalBanner from '@/components/layout/FictionalBanner.astro';
+
+interface Props {
+  caseCaption: string;
+  caseNumber?: string;
+  court?: string;
+  title: string;
+  formNumber?: string;
+  date: string;
+  documentType: string;
+  authorRole: string;
+}
+const { caseCaption, caseNumber, court, title, formNumber, date, documentType, authorRole } = Astro.props;
+---
+<FictionalBanner variant="stripe" />
+<header class="border-b-2 border-rule px-6 py-10 bg-paper">
+  <div class="mx-auto max-w-4xl">
+    <div class="flex flex-wrap gap-2 mb-4">
+      <Badge tone="ink">{documentType.replace(/-/g, ' ')}</Badge>
+      {formNumber && <Badge tone="accent">{formNumber}</Badge>}
+      <Badge tone="accent-2">{authorRole}</Badge>
+    </div>
+    <p class="text-xs uppercase tracking-wider text-muted">{court ?? 'Superior Court of California'}</p>
+    <p class="font-mono text-sm mt-1">{caseCaption}{caseNumber ? ` · No. ${caseNumber}` : ''}</p>
+    <h1 class="font-display text-3xl md:text-4xl mt-6">{title}</h1>
+    <p class="text-muted text-sm mt-2 font-mono">{date}</p>
+  </div>
+</header>
