@@ -5,6 +5,8 @@ interface Props {
 const { documentType } = Astro.props;
 const usePleading = documentType === 'pleading' || documentType === 'motion';
 ---
-<article class={`mx-auto max-w-3xl px-6 py-10 prose prose-neutral ${usePleading ? 'pleading-paper' : 'font-doc'}`}>
-  <slot />
-</article>
+<div class="word-doc-shell">
+  <article class={`word-doc-page ${usePleading ? 'pleading-paper' : ''}`}>
+    <slot />
+  </article>
+</div>
