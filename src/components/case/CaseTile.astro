@@ -1,0 +1,20 @@
+---
+import Badge from '@/components/ui/Badge.astro';
+interface Props {
+  href: string;
+  caption: string;
+  practiceArea: string;
+  oneLiner: string;
+  artifactCount: number;
+}
+const { href, caption, practiceArea, oneLiner, artifactCount } = Astro.props;
+const practiceLabel = practiceArea.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+---
+<a href={href} class="group block border border-rule/15 rounded-xl p-6 bg-paper hover:border-accent hover:shadow-lg transition">
+  <Badge tone="accent-2">{practiceLabel}</Badge>
+  <h3 class="font-display text-2xl mt-3 group-hover:text-accent transition">{caption}</h3>
+  <p class="text-muted mt-2 text-sm">{oneLiner}</p>
+  <p class="mt-4 text-xs text-muted uppercase tracking-wider">
+    {artifactCount} {artifactCount === 1 ? 'artifact' : 'artifacts'}
+  </p>
+</a>

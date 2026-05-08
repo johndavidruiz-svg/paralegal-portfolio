@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Pill from '@/components/ui/Pill.astro';
+
+interface Props {
+  caseSlug: string;
+  artifacts: CollectionEntry<'artifacts'>[];
+}
+const { caseSlug, artifacts } = Astro.props;
+
+// Group by stage via taskTypeSlug → stage isn't directly on artifact;
+// for ordering we use the artifact's date ascending.
+const sorted = [...artifacts].sort((a, b) =>
+  a.data.date.localeCompare(b.data.date)
+);
+---
+<section class="my-10">
+  <h2 class="font-display text-2xl mb-4">Artifacts produced ({sorted.length})</h2>
+  <ul class="grid gap-3 md:grid-cols-2">
+    {sorted.map((art) => (
+      <li>
+        <a
+          href={`/artifacts/${caseSlug}/${art.data.slug}/`}
+          class="block border border-rule/15 rounded-lg p-4 hover:border-accent transition"
+        >
+          <p class="text-xs text-muted font-mono">{art.data.date}{art.data.formNumber ? ` · ${art.data.formNumber}` : ''}</p>
+          <p class="font-semibold mt-1">{art.data.title}</p>
+          <p class="text-xs text-muted mt-1 capitalize">{art.data.documentType.replace(/-/g, ' ')}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

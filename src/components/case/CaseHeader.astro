@@ -1,0 +1,31 @@
+---
+import FictionalBanner from '@/components/layout/FictionalBanner.astro';
+interface Props {
+  caption: string;
+  court?: string;
+  caseNumber?: string;
+  parties: { plaintiff: string[]; defendant: string[] };
+  filed?: string;
+}
+const { caption, court, caseNumber, parties, filed } = Astro.props;
+---
+<FictionalBanner variant="stripe" />
+<header class="bg-ink text-paper py-12 px-6">
+  <div class="mx-auto max-w-4xl">
+    <p class="text-paper/60 text-xs uppercase tracking-wider">Caption</p>
+    <h1 class="font-display text-4xl md:text-5xl mt-2">{caption}</h1>
+    <dl class="mt-6 grid gap-3 md:grid-cols-2 text-sm">
+      {court && <div><dt class="text-paper/50">Court</dt><dd>{court}</dd></div>}
+      {caseNumber && <div><dt class="text-paper/50">Case No.</dt><dd class="font-mono">{caseNumber}</dd></div>}
+      {filed && <div><dt class="text-paper/50">Filed</dt><dd>{filed}</dd></div>}
+      <div>
+        <dt class="text-paper/50">Plaintiff{parties.plaintiff.length > 1 ? 's' : ''}</dt>
+        <dd>{parties.plaintiff.join(', ')}</dd>
+      </div>
+      <div>
+        <dt class="text-paper/50">Defendant{parties.defendant.length > 1 ? 's' : ''}</dt>
+        <dd>{parties.defendant.join(', ')}</dd>
+      </div>
+    </dl>
+  </div>
+</header>
