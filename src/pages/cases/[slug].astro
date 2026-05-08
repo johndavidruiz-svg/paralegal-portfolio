@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CaseHeader from '@/components/case/CaseHeader.astro';
+import CaseTimeline from '@/components/case/CaseTimeline.astro';
+import CaseArtifactList from '@/components/case/CaseArtifactList.astro';
+
+export async function getStaticPaths() {
+  const cases = await getCollection('cases');
+  const artifacts = await getCollection('artifacts');
+  return cases.map((c) => ({
+    params: { slug: c.data.slug },
+    props: {
+      caseEntry: c,
+      artifacts: artifacts.filter((a) => a.data.caseSlug === c.data.slug),
+    },
+  }));
+}
+
+const { caseEntry, artifacts } = Astro.props;
+const { Content } = await caseEntry.render();
+const d = caseEntry.data;
+---
+<BaseLayout title={`${d.caption} — Case`} description={d.oneLiner}>
+  <CaseHeader
+    caption={d.caption}
+    court={d.court}
+    caseNumber={d.caseNumber}
+    parties={d.parties}
+    filed={d.filed}
+  />
+
+  <article class="mx-auto max-w-3xl px-6 py-10 prose prose-neutral">
+    <Content />
+  </article>
+
+  <div class="mx-auto max-w-3xl px-6">
+    <h2 class="font-display text-2xl mt-10 mb-2">Procedural timeline</h2>
+    <CaseTimeline timeline={d.timeline} />
+  </div>
+
+  <div class="mx-auto max-w-3xl px-6">
+    <CaseArtifactList caseSlug={d.slug} artifacts={artifacts} />
+  </div>
+</BaseLayout>
