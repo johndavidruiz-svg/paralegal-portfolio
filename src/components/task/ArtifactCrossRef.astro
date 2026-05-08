@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props {
+  artifacts: CollectionEntry<'artifacts'>[];
+}
+const { artifacts } = Astro.props;
+---
+{artifacts.length === 0 ? (
+  <p class="text-muted italic">No artifact yet exemplifies this task type.</p>
+) : (
+  <ul class="grid gap-3 md:grid-cols-2 my-6">
+    {artifacts.map((a) => (
+      <li>
+        <a
+          href={`/artifacts/${a.data.caseSlug}/${a.data.slug}/`}
+          class="block border border-rule/15 rounded-lg p-4 hover:border-accent transition"
+        >
+          <p class="text-xs text-muted font-mono">{a.data.caseSlug}</p>
+          <p class="font-semibold mt-1">{a.data.title}</p>
+          <p class="text-xs text-muted mt-1">{a.data.date}{a.data.formNumber ? ` · ${a.data.formNumber}` : ''}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
+)}
