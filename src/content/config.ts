@@ -12,6 +12,7 @@ const cases = defineCollection({
       'employment',
       'family-law',
       'criminal',
+      'consumer-protection',
     ]),
     jurisdiction: z.string().default('California'),
     court: z.string().optional(),
