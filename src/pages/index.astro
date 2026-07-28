@@ -16,7 +16,7 @@ const caseTiles = cases.map((c) => ({
   artifactCount: artifacts.filter((a) => a.data.caseSlug === c.slug).length,
 }));
 ---
-<BaseLayout title="AI-Augmented Paralegal Portfolio — 28 task types, 6 fictional cases">
+<BaseLayout title="AI-Augmented Paralegal Portfolio — 29 task types, 7 fictional cases">
   <section class="px-6 py-20 md:py-28 relative overflow-hidden">
     <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(230,57,70,0.08),transparent_60%)]"></div>
 
@@ -35,8 +35,8 @@ const caseTiles = cases.map((c) => ({
         Every paralegal task,<br />delivered with an<br /><span class="text-accent">AI workflow</span>.
       </h1>
       <p class="text-muted mt-6 text-lg max-w-2xl mx-auto">
-        Intake to trial — 28 task types, each shown through an AI-assisted artifact with prompts, edits,
-        and reviewer notes disclosed. Six fictional California cases. No real client data.
+        Intake to trial — 29 task types, each shown through an AI-assisted artifact with prompts, edits,
+        and reviewer notes disclosed. Seven fictional California cases. No real client data.
       </p>
 
       <div class="mt-8 inline-flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs font-mono text-muted">
@@ -51,9 +51,9 @@ const caseTiles = cases.map((c) => ({
     </div>
 
     <div class="relative mx-auto max-w-3xl mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-      <Stat value="28" label="Task types" />
-      <Stat value="6" label="Fictional cases" />
-      <Stat value="28" label="AI-drafted artifacts" />
+      <Stat value="29" label="Task types" />
+      <Stat value="7" label="Fictional cases" />
+      <Stat value="29" label="AI-drafted artifacts" />
       <Stat value="CA" label="Jurisdiction" />
     </div>
   </section>
@@ -81,7 +81,7 @@ const caseTiles = cases.map((c) => ({
 
   <section class="px-6 py-16">
     <div class="mx-auto max-w-6xl">
-      <h2 class="font-display text-3xl md:text-4xl mb-8">The 28 task types</h2>
+      <h2 class="font-display text-3xl md:text-4xl mb-8">The 29 task types</h2>
       <div class="flex flex-wrap gap-2">
         {tasks.sort((a,b) => a.data.name.localeCompare(b.data.name)).map((t) => (
           <TaskChip href={`/tasks/${t.slug}/`} name={t.data.name} shortDef={t.data.shortDef} />

@@ -1,6 +1,6 @@
 # Paralegal Portfolio
 
-Static portfolio site demonstrating 28 paralegal task types through 28 fictional California-jurisdiction artifacts across 6 fictional cases.
+Static portfolio site demonstrating 29 paralegal task types through 29 fictional California-jurisdiction artifacts across 7 fictional cases.
 
 **Live:** https://paralegal-portfolio.pages.dev
 
